@@ -1,14 +1,3 @@
-
-import { readFile }      from 'node:fs/promises';
-import { fileURLToPath } from 'node:url';
-import path              from 'node:path';
-
-const __filename = fileURLToPath(import.meta.url);
-const __dirname  = path.dirname(__filename);
-
-const input = await readFile(path.join(__dirname, "input.txt"), 'utf8');
-const test = await readFile(path.join(__dirname, "test.txt"), 'utf8');
-
 const numMap = {
     "one": 1,
     "two": 2,
@@ -25,6 +14,10 @@ const numMap = {
 export function getNums(row) {
     const nums = row.match(/\d/g);
 
+    if (!nums) {
+        return ["0", "0"];
+    }
+
     return [ nums[0], nums.at(-1) ];
 }
 
@@ -32,10 +25,10 @@ export function parseNums([ n0, n1 ]) {
     return parseInt(`${n0}${n1}`);
 }
 
-export function day01(_input) {
+export function sumFromRows(input) {
     let sum = 0;
 
-    _input.split("\n").forEach((line) => {
+    input.split("\n").forEach((line) => {
         const num =  parseNums(getNums(line));
 
         sum += num;
@@ -85,7 +78,7 @@ export function swapAllMatches(str) {
     return swapAllMatches(swapped);
 }
 
-export function numSwap(str) {
+export function swapMatchesAllRows(str) {
     let newInput = str;
 
     Object.entries(numMap).forEach(([ word, num ]) => {
@@ -93,18 +86,4 @@ export function numSwap(str) {
     });
 
     return newInput;
-}
-
-export function p1() {
-    return day01(input);
-}
-
-export function p2() {
-    let newInput = numSwap(input);
-
-    console.log(newInput);
-
-
-
-    return day01(newInput);
 }
