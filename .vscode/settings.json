@@ -1,5 +1,10 @@
 {
     "cSpell.words": [
         "nums"
+    ],
+    "cSpell.ignorePaths" : [
+        "**/input.txt**",
+        "**/output.txt**",
+        "**/sample*.txt**"
     ]
 }
