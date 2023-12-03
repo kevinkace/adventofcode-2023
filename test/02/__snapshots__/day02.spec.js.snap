@@ -1,0 +1,94 @@
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
+
+exports[`day 02 > can parse input 1`] = `
+[
+  {
+    "game": 1,
+    "rounds": [
+      {
+        "blue": 3,
+        "red": 4,
+      },
+      {
+        "blue": 6,
+        "green": 2,
+        "red": 1,
+      },
+      {
+        "green": 2,
+      },
+    ],
+  },
+  {
+    "game": 2,
+    "rounds": [
+      {
+        "blue": 1,
+        "green": 2,
+      },
+      {
+        "blue": 4,
+        "green": 3,
+        "red": 1,
+      },
+      {
+        "blue": 1,
+        "green": 1,
+      },
+    ],
+  },
+  {
+    "game": 3,
+    "rounds": [
+      {
+        "blue": 6,
+        "green": 8,
+        "red": 20,
+      },
+      {
+        "blue": 5,
+        "green": 13,
+        "red": 4,
+      },
+      {
+        "green": 5,
+        "red": 1,
+      },
+    ],
+  },
+  {
+    "game": 4,
+    "rounds": [
+      {
+        "blue": 6,
+        "green": 1,
+        "red": 3,
+      },
+      {
+        "green": 3,
+        "red": 6,
+      },
+      {
+        "blue": 15,
+        "green": 3,
+        "red": 14,
+      },
+    ],
+  },
+  {
+    "game": 5,
+    "rounds": [
+      {
+        "blue": 1,
+        "green": 3,
+        "red": 6,
+      },
+      {
+        "blue": 2,
+        "green": 2,
+        "red": 1,
+      },
+    ],
+  },
+]
+`;
