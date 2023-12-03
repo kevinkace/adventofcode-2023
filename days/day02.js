@@ -50,3 +50,27 @@ export function sumValidateGames(games, availCubes) {
         return sum + (validateGame(game, availCubes) ? (idx + 1) : 0);
     }, 0);
 }
+
+/**
+ * @param {typedefs.Game} game
+ * @returns {import("../typedefs").AvailCubes} fewest cubes used in a game
+ */
+export function fewestGameCubes(game) {
+    return game.rounds.reduce((fewest, round) => {
+        ["red", "green", "blue"].forEach((color) => {
+            if (color in round && round[color] > fewest[color]) {
+                fewest[color] = round[color];
+            }
+        });
+
+        return fewest
+    }, { red : 0, green : 0, blue : 0 });
+}
+
+/**
+ * @param {typedefs.Game} game
+ * @returns {number} product of cubes
+ */
+export function powerCubes(game) {
+    return game.red * game.blue * game.green;
+}

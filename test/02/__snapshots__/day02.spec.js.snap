@@ -1,5 +1,43 @@
 // Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
 
+exports[`day 02 > can get fewest cubes for 1 game 1`] = `
+{
+  "blue": 6,
+  "green": 2,
+  "red": 4,
+}
+`;
+
+exports[`day 02 > can get fewest cubes for all games 1`] = `
+[
+  {
+    "blue": 6,
+    "green": 2,
+    "red": 4,
+  },
+  {
+    "blue": 4,
+    "green": 3,
+    "red": 1,
+  },
+  {
+    "blue": 6,
+    "green": 13,
+    "red": 20,
+  },
+  {
+    "blue": 15,
+    "green": 3,
+    "red": 14,
+  },
+  {
+    "blue": 2,
+    "green": 3,
+    "red": 6,
+  },
+]
+`;
+
 exports[`day 02 > can parse input 1`] = `
 [
   {
@@ -92,3 +130,15 @@ exports[`day 02 > can parse input 1`] = `
   },
 ]
 `;
+
+exports[`day 02 > can power cubes 1`] = `
+[
+  48,
+  12,
+  1560,
+  630,
+  36,
+]
+`;
+
+exports[`day 02 > can sum power cubes 1`] = `2286`;
