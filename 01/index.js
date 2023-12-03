@@ -10,6 +10,18 @@ const numMap = {
     nine  : 9,
 };
 
+const numMap2 = {
+    one : "o1e",
+    two : "t2o",
+    three : "t3e",
+    four : "f4r",
+    five : "f5e",
+    six : "s6x",
+    seven : "s7n",
+    eight : "e8t",
+    nine : "n9e",
+};
+
 /**
  * Get first and last digit in string, and concat to a 2 digit number
  * @param {string} row - eg `"abc123"`
@@ -97,11 +109,19 @@ export function swapAllMatches(str) {
     return swapAllMatches(swapped);
 }
 
+export function swapAllMatches2(str) {
+    Object.entries(numMap2).forEach(([ word, num ]) => {
+        str = str.replaceAll(word, num);
+    });
+
+    return str;
+}
+
 /**
  * Swap all matches in all rows
  * @param {string} str - eg `"one2eighthree\nfour5fivesix"`
  * @returns {string} - eg `"128hree\n4556"
  */
 export function swapAndSum(str) {
-    return sumRows(str, swapAllMatches);
+    return sumRows(str, swapAllMatches2);
 }

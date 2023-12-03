@@ -12,7 +12,7 @@ const output   = await readFile(path.join(__dirname, "output.txt"), "utf8");
 const sample01 = await readFile(path.join(__dirname, "sample01.txt"), "utf8");
 const sample02 = await readFile(path.join(__dirname, "sample02.txt"), "utf8");
 
-import { getNum, swapAndSum, getMatches, swapLowestMatch, swapAllMatches, sumRows } from "../../01";
+import { getNum, swapAndSum, getMatches, swapLowestMatch, swapAllMatches, sumRows, swapAllMatches2 } from "../../01";
 
 describe("day 01", () => {
     test("gets nums from row", () => {
@@ -27,7 +27,7 @@ describe("day 01", () => {
         // expect(numSwap("eightwothree")).toBe("8wo3");
     });
 
-    test("can get matches", () => {
+    test.skip("can get matches", () => {
         expect(getMatches("one")).toMatchObject({ 0 : "one" });
         expect(getMatches("oneone")).toMatchObject({ 0 : "one" });
         expect(getMatches("nine1one")).toMatchObject({ 0 : "nine", 5 : "one" });
@@ -37,7 +37,7 @@ describe("day 01", () => {
         expect(getMatches("eightwothree")).toMatchObject({ 0 : "eight", 4 : "two", 7 : "three" });
     });
 
-    test("swap lowest", () => {
+    test.skip("swap lowest", () => {
         expect(swapLowestMatch("one", { 0 : "one" })).toBe("1");
         expect(swapLowestMatch("oneone", { 0 : "one" })).toBe("1one");
         expect(swapLowestMatch("nine1one", { 0 : "nine", 5 : "one" })).toBe("91one");
@@ -46,7 +46,17 @@ describe("day 01", () => {
         expect(swapLowestMatch("eightwothree", { 0 : "eight", 4 : "two", 7 : "three" })).toBe("8wothree");
     });
 
-    test.only("can swap all", () => {
+    test("can swap all", () => {
+        Object.entries({
+            "threeight" : "t3e8t",
+            "fiveight" : "f5e8t",
+            "sevenine" : "s7n9e",
+        }).forEach(([ input, expected ]) => {
+            expect(swapAllMatches2(input)).toBe(expected);
+        });
+    });
+
+    test.skip("can swap all", () => {
         Object.entries({
             // base compounds
             "oneight" : "1ight",
@@ -133,7 +143,7 @@ describe("day 01", () => {
         });
     });
 
-    test("swapping", async () => {
+    test.only("swapping", async () => {
         let result = swapAndSum(input);
 
         console.log({ result });
