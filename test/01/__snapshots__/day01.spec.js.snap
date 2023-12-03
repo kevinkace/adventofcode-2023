@@ -1,0 +1,5 @@
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
+
+exports[`day 01 > answer part 1 1`] = `54877`;
+
+exports[`day 01 > answer part 2 1`] = `54100`;
