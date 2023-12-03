@@ -1,6 +1,7 @@
 {
     "cSpell.words": [
-        "nums"
+        "nums",
+        "typedefs"
     ],
     "cSpell.ignorePaths" : [
         "**/input.txt**",

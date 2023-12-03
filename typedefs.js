@@ -12,4 +12,11 @@
  * @property {number} blue
  */
 
+/**
+ * @typedef {Object} AvailCubes
+ * @property {number} red
+ * @property {number} green
+ * @property {number} blue
+ */
+
 export default {};

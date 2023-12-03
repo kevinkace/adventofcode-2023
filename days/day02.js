@@ -1,4 +1,9 @@
+import typedefs from "../typedefs";
 
+/**
+ * @param {string} input
+ * @returns {typedefs.Game[]}
+ */
 export function parseGames(games) {
     return games.split("\n").map((line) => {
         let [
@@ -22,6 +27,11 @@ export function parseGames(games) {
     });
 }
 
+/**
+ * @param {typedefs.Game} game
+ * @param {typedefs.AvailCubes} availCubes
+ * @returns {boolean}
+ */
 export function validateGame(game, availCubes) {
     return game.rounds.every((round) => {
         return Object.keys(round).every((color) => {
@@ -30,6 +40,11 @@ export function validateGame(game, availCubes) {
     });
 }
 
+/**
+ * @param {typedefs.Game[]} games
+ * @param {typedefs.AvailCubes} availCubes
+ * @returns {number} sum of valid game indexes
+ */
 export function sumValidateGames(games, availCubes) {
     return games.reduce((sum, game, idx) => {
         return sum + (validateGame(game, availCubes) ? (idx + 1) : 0);
