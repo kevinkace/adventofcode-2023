@@ -1,8 +1,9 @@
 export class Regions {
     constructor(str) {
-        this.str = str;
+        this.str    = str;
         this.parsed = str.split(/\r\n|\n/);
-        this.regions = [];
+
+        this.regions  = [];
         this.specials = [];
 
         this.getRegions();
@@ -25,9 +26,7 @@ export class Regions {
                     continue;
                 }
 
-                if (['$', '*', '/', '-', '#', '@', '&', '%', '=', '+'].includes(currChar)) {
-                    this.specials.push({ char : currChar, x, y });
-                }
+                this.specials.push({ char : currChar, x, y });
             }
 
             this.closeRegion();
