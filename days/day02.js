@@ -29,7 +29,7 @@ export function parseGames(games) {
 
 /**
  * @param {typedefs.Game} game
- * @param {typedefs.AvailCubes} availCubes
+ * @param {typedefs.Cubes} availCubes
  * @returns {boolean}
  */
 export function validateGame(game, availCubes) {
@@ -42,7 +42,7 @@ export function validateGame(game, availCubes) {
 
 /**
  * @param {typedefs.Game[]} games
- * @param {typedefs.AvailCubes} availCubes
+ * @param {typedefs.Cubes} availCubes
  * @returns {number} sum of valid game indexes
  */
 export function sumValidateGames(games, availCubes) {

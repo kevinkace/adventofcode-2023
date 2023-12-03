@@ -13,7 +13,7 @@
  */
 
 /**
- * @typedef {Object} AvailCubes
+ * @typedef {Object} Cubes
  * @property {number} red
  * @property {number} green
  * @property {number} blue

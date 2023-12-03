@@ -15,7 +15,7 @@ const input    = await readFile(path.join(__dirname, "input.txt"), "utf8");
 const sample01 = await readFile(path.join(__dirname, "sample01.txt"), "utf8");
 
 
-/** @type  */
+/** @type {typedefs.Cubes} */
 const availCubes = {
     red   : 12,
     green : 13,
