@@ -2,6 +2,8 @@
 
 exports[`day 03 > answer pt 1 1`] = `554003`;
 
+exports[`day 03 > answer pt 2 1`] = `87263515`;
+
 exports[`day 03 > can get numbers 1`] = `
 Regions {
   "parsed": [
@@ -173,5 +175,38 @@ exports[`day 03 > gets collisions 1`] = `
     "x2": 7,
     "y": 9,
   },
+]
+`;
+
+exports[`day 03 > p2 sample 1`] = `
+[
+  [
+    {
+      "number": 467,
+      "x1": 0,
+      "x2": 2,
+      "y": 0,
+    },
+    {
+      "number": 35,
+      "x1": 2,
+      "x2": 3,
+      "y": 2,
+    },
+  ],
+  [
+    {
+      "number": 755,
+      "x1": 6,
+      "x2": 8,
+      "y": 7,
+    },
+    {
+      "number": 598,
+      "x1": 5,
+      "x2": 7,
+      "y": 9,
+    },
+  ],
 ]
 `;

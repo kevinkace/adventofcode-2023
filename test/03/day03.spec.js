@@ -86,4 +86,18 @@ describe("day 03", () => {
             console.log(regions.sumCollisions());
         });
     });
+
+    test("p2 sample", () => {
+        const regions = new Regions(sample01);
+
+        expect(regions.getGearRatios()).toMatchSnapshot();
+
+        expect(regions.sumGearRatios()).toEqual(467835);
+    });
+
+    test("answer pt 2", () => {
+        const regions = new Regions(input);
+
+        expect(regions.sumGearRatios()).toMatchSnapshot();
+    });
 });

@@ -76,6 +76,30 @@ export class Regions {
         return this.getCollisions().reduce((acc, curr) => acc + curr.number, 0);
     }
 
+    getGearRatios() {
+        const gearRatios = [];
+
+        this.specials.forEach((special, i) => {
+            const regions = this.regions.filter((region, j) => {
+                return specialCollision(region, special);
+            });
+
+            if (regions.length === 2) {
+                gearRatios.push(regions);
+            }
+        });
+
+        return gearRatios;
+    }
+
+    sumGearRatios() {
+        const gearRatios = this.getGearRatios();
+
+        return gearRatios.reduce((acc, curr) => {
+            return acc + (curr[0].number * curr[1].number);
+        }, 0);
+    }
+
 }
 
 export function specialCollision(region, special) {
