@@ -21,3 +21,17 @@ export function parseGames(games) {
         };
     });
 }
+
+export function validateGame(game, availCubes) {
+    return game.rounds.every((round) => {
+        return Object.keys(round).every((color) => {
+            return round[color] <= availCubes[color];
+        });
+    });
+}
+
+export function sumValidateGames(games, availCubes) {
+    return games.reduce((sum, game, idx) => {
+        return sum + (validateGame(game, availCubes) ? (idx + 1) : 0);
+    }, 0);
+}

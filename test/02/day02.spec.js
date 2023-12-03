@@ -4,17 +4,47 @@ import path                    from "node:path";
 
 import { expect, test, describe } from "vitest";
 
+import { parseGames, validateGame, sumValidateGames } from "../../days/day02.js";
+
 const __filename = fileURLToPath(import.meta.url);
 const __dirname  = path.dirname(__filename);
 
 const input    = await readFile(path.join(__dirname, "input.txt"), "utf8");
 const sample01 = await readFile(path.join(__dirname, "sample01.txt"), "utf8");
-// const sample02 = await readFile(path.join(__dirname, "sample02.txt"), "utf8");
 
-import { parseGames } from "../../days/day02.js";
+
+const availCubes = {
+    red   : 12,
+    green : 13,
+    blue  : 14
+};
 
 describe("day 02", () => {
     test("can parse input", () => {
         expect(parseGames(sample01)).toMatchSnapshot();
+    });
+
+    test("can validate a game", () => {
+        const parsed = parseGames(sample01);
+        const results = [ true, true, false, false, true ];
+
+        parsed.forEach((game, idx) => {
+            expect(validateGame(game, availCubes)).toBe(results[idx]);
+        });
+    });
+
+    test("can sum valid games from sample", () => {
+        const parsed = parseGames(sample01);
+
+        expect(sumValidateGames(parsed, availCubes)).toBe(8);
+    });
+
+    test("can sum valid games", () => {
+        const parsed = parseGames(input);
+        const result = sumValidateGames(parsed, availCubes);
+
+        console.log(result);
+
+        expect(result).toBeTypeOf("number");
     });
 });
