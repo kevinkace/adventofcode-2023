@@ -49,74 +49,17 @@ describe("day 01", () => {
     test("can swap all", () => {
         Object.entries({
             "threeight" : "t3e8t",
-            "fiveight" : "f5e8t",
-            "sevenine" : "s7n9e",
-        }).forEach(([ input, expected ]) => {
-            expect(swapAllMatches2(input)).toBe(expected);
-        });
-    });
+            "fiveight"  : "f5e8t",
+            "sevenine"  : "s7n9e",
 
-    test.skip("can swap all", () => {
-        Object.entries({
             // base compounds
-            "oneight" : "1ight",
+            "oneight"   : "1ight",
             "threeight" : "3ight",
-            "fiveight" : "5ight",
-            "sevenine" : "7ine",
-            "eightwo" : "8wo",
+            "fiveight"  : "5ight",
+            "sevenine"  : "7ine",
+            "eightwo"   : "8wo",
             "eighthree" : "8hree",
-            "nineight" : "9ight"
-
-
-
-            // one                : "1",
-            // oneone             : "11",
-            // eightwothree       : "8wo3",
-            // abcone2threexyz    : "abc123xyz",
-            // xtwone3four        : "x2ne34",
-            // "4nineeightseven2" : "49872",
-            // zoneight234        : "z1ight234",
-            // "7pqrstsixteen"    : "7pqrst6teen",
-            // oneoneone          : "111",
-
-            // four82nine74                          : "482974",
-            // hlpqrdh3                              : "hlpqrdh3",
-            // eightsevenhrsseven988                 : "87hrs7988",
-            // "324pzonenine"                        : "324pz19",
-            // fglpbone79fourvrgcmgklbmthree         : "fglpb1794vrgcmgklbm3",
-            // fmbbkvthdcdmcjxzclk42six4             : "fmbbkvthdcdmcjxzclk4264",
-            // four22xcqsnvktnpfshtmm                : "422xcqsnvktnpfshtmm",
-            // qmfsccxsixfivelnmpjqjcsc1sixpfpmeight : "qmfsccx65lnmpjqjcsc16pfpm8",
-            // eight1nine5nine9six                   : "8195996",
-            // s4r91seven                            : "s4r917",
-            // "6pspkslrnxpplkhgqlcqfour"            : "6pspkslrnxpplkhgqlcq4",
-            // sixeightnzrzgjvsrnmtqgx5              : "68nzrzgjvsrnmtqgx5",
-            // sixtwo1                               : "621",
-            // h6                                    : "h6",
-            // five8pbcsllrbvg787                    : "58pbcsllrbvg787",
-            // dpfhfeight28onefourtwo                : "dpfhf828142",
-            // vxqbtkxjtwoz3seven                    : "vxqbtkxj2z37",
-            // "8ksrcjrcmpbq9rtvtvrbgljzqvbnxddnzt"  : "8ksrcjrcmpbq9rtvtvrbgljzqvbnxddnzt",
-            // mpftpsgp6fourvdmltwojd9               : "mpftpsgp64vdml2jd9",
-            // "2fivetwosix"                         : "2526",
-            // "3qqx2"                               : "3qqx2",
-            // jsbdh16snnllpvvgnggfive5nhjpgdzh      : "jsbdh16snnllpvvgngg55nhjpgdzh",
-            // "4fmgmmbonegtsnqfdqt1pm"              : "4fmgmmb1gtsnqfdqt1pm",
-            // threeighthree                         : "3igh3",
-            // four1six                              : "416",
-            // sdsevenine                            : "sd7ine"
-            // 2onendvlmcrvzsnpr83nine
-            // 8ninelfhkhnqtdfour
-            // 8reight
-            // 84gnprjhr3eightsixsix
-            // 1nc7two
-            // 3zcgkgrnd1d4
-            // nmfqfivervqkxmkdpnine51
-            // 1fdtrptkb3
-            // nineone7kks
-            // ninelzgncpeight966427
-            // eightrsniner9
-            // nine7two4
+            "nineight"  : "9ight"
         }).forEach(([ input, expected ]) => {
             expect(swapAllMatches(input)).toBe(expected);
         });
