@@ -1,5 +1,9 @@
 // Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
 
+exports[`day 02 > answer part 1 1`] = `2486`;
+
+exports[`day 02 > answer part 2 1`] = `87984`;
+
 exports[`day 02 > can get fewest cubes for 1 game 1`] = `
 {
   "blue": 6,
@@ -140,7 +144,3 @@ exports[`day 02 > can power cubes 1`] = `
   36,
 ]
 `;
-
-exports[`day 02 > can sum power cubes 1`] = `2286`;
-
-exports[`day 02 > can sum power cubes 2`] = `87984`;

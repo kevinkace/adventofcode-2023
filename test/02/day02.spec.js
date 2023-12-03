@@ -36,19 +36,16 @@ describe("day 02", () => {
         });
     });
 
-    test("can sum valid games from sample", () => {
-        const parsed = parseGames(sample01);
+    test("answer part 1", () => {
+        let parsed = parseGames(sample01);
+        let result = sumValidateGames(parsed, availCubes);
 
-        expect(sumValidateGames(parsed, availCubes)).toBe(8);
-    });
+        expect(result).toBe(8);
 
-    test("can sum valid games", () => {
-        const parsed = parseGames(input);
-        const result = sumValidateGames(parsed, availCubes);
+        parsed = parseGames(input);
+        result = sumValidateGames(parsed, availCubes);
 
-        console.log(result);
-
-        expect(result).toBeTypeOf("number");
+        expect(result).toMatchSnapshot();
     });
 
     test("can get fewest cubes for 1 game", () => {
@@ -71,31 +68,23 @@ describe("day 02", () => {
             .map(fewestGameCubes)
             .map(powerCubes);
 
-        console.log(result);
-
         expect(result).toMatchSnapshot();
     });
 
-    test('can sum power cubes', () => {
-        const parsed = parseGames(sample01);
-        const result = parsed
+    test('answer part 2', () => {
+        let parsed = parseGames(sample01);
+        let result = parsed
             .map(fewestGameCubes)
             .map(powerCubes)
-            .reduce((sum, cubes) => {
-                return sum + cubes;
-            }, 0);
+            .reduce((sum, cubes) => sum + cubes, 0);
 
-        expect(result).toMatchSnapshot();
-    });
+        expect(result).toEqual(2286);
 
-    test('can sum power cubes', () => {
-        const parsed = parseGames(input);
-        const result = parsed
+        parsed = parseGames(input);
+        result = parsed
             .map(fewestGameCubes)
             .map(powerCubes)
-            .reduce((sum, cubes) => {
-                return sum + cubes;
-            }, 0);
+            .reduce((sum, cubes) => sum + cubes, 0);
 
         expect(result).toMatchSnapshot();
     });
