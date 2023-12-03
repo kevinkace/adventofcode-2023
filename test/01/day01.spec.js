@@ -12,7 +12,7 @@ const output   = await readFile(path.join(__dirname, "output.txt"), "utf8");
 const sample01 = await readFile(path.join(__dirname, "sample01.txt"), "utf8");
 const sample02 = await readFile(path.join(__dirname, "sample02.txt"), "utf8");
 
-import { getNum, swapAndSum, getMatches, swapLowestMatch, swapAllMatches, sumRows, swapAllMatches2 } from "../../01";
+import { getNum, swapAndSum, getMatches, swapLowestMatch, swapAllMatches, sumRows, swapAllMatches2 } from "../../days/day01.js";
 
 describe("day 01", () => {
     test("gets nums from row", () => {
