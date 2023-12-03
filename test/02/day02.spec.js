@@ -87,4 +87,16 @@ describe("day 02", () => {
 
         expect(result).toMatchSnapshot();
     });
+
+    test('can sum power cubes', () => {
+        const parsed = parseGames(input);
+        const result = parsed
+            .map(fewestGameCubes)
+            .map(powerCubes)
+            .reduce((sum, cubes) => {
+                return sum + cubes;
+            }, 0);
+
+        expect(result).toMatchSnapshot();
+    });
 });

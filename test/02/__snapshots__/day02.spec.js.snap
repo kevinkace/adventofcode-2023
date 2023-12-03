@@ -142,3 +142,5 @@ exports[`day 02 > can power cubes 1`] = `
 `;
 
 exports[`day 02 > can sum power cubes 1`] = `2286`;
+
+exports[`day 02 > can sum power cubes 2`] = `87984`;
