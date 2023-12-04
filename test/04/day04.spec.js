@@ -15,11 +15,13 @@ const sample = await readFile(path.join(__dirname, "sample.txt"), "utf8");
 const input  = await readFile(path.join(__dirname, "input.txt"), "utf8");
 
 const sampleGame = "Card 1: 41 48 83 86 17 | 83 86  6 31 17  9 48 53";
+const sampleGame2 = "Card 3:  1 21 53 59 44 | 69 82 63 72 16 21 14  1";
 
 
 describe("day 04", () => {
     test("can create new Game", () => {
         expect(new Game(sampleGame)).toMatchSnapshot();
+        expect(new Game(sampleGame2)).toMatchSnapshot();
     });
 
     test("can get game wins", () => {
@@ -50,12 +52,21 @@ describe("day 04", () => {
         expect(games.getTotalPoints()).toEqual(13);
     });
 
+    test("can stringify", async () => {
+        const game = new Game(sampleGame);
+
+        expect(game.toString()).toBe(sampleGame);
+
+        const games = new Games(sample);
+
+        expect(games.toString()).toBe(sample);
+    });
+
     test("answer p1", () => {
         const games = new Games(input);
 
         const points = games.getTotalPoints();
 
-        console.log(points);
-        expect(points).toBeLessThan(26478)
+        expect(points).toBe(26218);
     });
 });
