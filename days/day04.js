@@ -1,7 +1,7 @@
 export class Game {
     constructor(str) {
         this.str = str;
-        this.parsed = str.match(/Card *(\d+): ([\d ]*) \| ([\d ]*)/);
+        this.parsed = str.match(/Card *(\d+): *([\d ]*) \| ([\d ]*)/);
 
         this.game = parseInt(this.parsed[1]);
 
@@ -12,10 +12,6 @@ export class Game {
     getWon() {
         this.won = this.won || this.players.filter(player => this.winners.includes(player));
 
-        if (this.won.length === 0) {
-            console.log(this.str);
-        }
-
         return this.won;
     }
 
@@ -23,6 +19,12 @@ export class Game {
         const won = this.getWon();
 
         return won.length ? Math.pow(2, won.length - 1) : 0;
+    }
+
+    toString() {
+        const winners = this.winners.map(w => w.toString().padStart(2, " ")).join(" ");
+        const players = this.players.map(p => p.toString().padStart(2, " ")).join(" ");
+        return `Card ${this.game}: ${winners} | ${players}`;
     }
 }
 
@@ -45,4 +47,10 @@ export class Games {
             return sum + game.getScore();
         }, 0)
     }
+
+    toString() {
+        return this.games.map(game=>game.toString()).join("\r\n");
+    }
+
+
 }
