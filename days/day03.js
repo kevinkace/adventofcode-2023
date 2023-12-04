@@ -1,7 +1,7 @@
 export class Regions {
     constructor(str) {
         this.str    = str;
-        this.parsed = str.split(/\r\n|\n/);
+        this.parsed = str.split(/\r?\n/);
 
         this.regions  = [];
         this.specials = [];
