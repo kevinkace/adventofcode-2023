@@ -1,3 +1,5 @@
+// Day 02
+
 /**
  * @typedef {Object} Game
  * @property {number} game
@@ -17,6 +19,16 @@
  * @property {number} red
  * @property {number} green
  * @property {number} blue
+ */
+
+// Day 3
+
+/**
+ * @typedef {Object} Game
+ * @property {number} game
+ * @property {number[]} winners
+ * @property {number[]} players
+ * @property {number[]} won
  */
 
 export default {};
