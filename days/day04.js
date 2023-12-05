@@ -43,9 +43,20 @@ export class Games {
     }
 
     getTotalPoints() {
-        return this.games.reduce((sum, game) => {
+        return this.games.reduce((sum, game, idx) => {
             return sum + game.getScore();
         }, 0)
+    }
+
+    getTotalCards() {
+        const copies = new Copies();
+
+        return this.games.reduce((totalCards, game, idx) => {
+            const wonCount = game.getWon().length;
+            const copyCount = copies.add(wonCount);
+
+            return totalCards + copyCount;
+        }, 0);
     }
 
     toString() {
@@ -53,4 +64,20 @@ export class Games {
     }
 
 
+}
+
+export class Copies {
+    constructor() {
+        this.copiesCount = [];
+    }
+
+    add(wonCount) {
+        const currCopyCount = this.copiesCount.shift() || 1;
+
+        for (let idx = 0; idx < wonCount; idx++) {
+            this.copiesCount[idx] = (this.copiesCount[idx] || 1) + currCopyCount;
+        }
+
+        return currCopyCount;
+    }
 }

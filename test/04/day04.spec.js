@@ -69,4 +69,20 @@ describe("day 04", () => {
 
         expect(points).toBe(26218);
     });
+
+    test("pt 2 sample" , () => {
+        const games = new Games(sample);
+
+        const points = games.getTotalCards();
+
+        expect(points).toBe(30);
+    });
+
+    test("answer pt 2" , () => {
+        const games = new Games(input);
+
+        const points = games.getTotalCards();
+
+        expect(points).toBe(9997537);
+    });
 });
