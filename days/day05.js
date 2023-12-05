@@ -13,4 +13,8 @@ export class Day05 {
     parse() {
         return this.lines.map(line => line.split(" "));
     }
+
+    toString() {
+        return this.parsed.reduce((acc, line) => acc + line.join(" ") + "\n", "").trim();
+    }
 }

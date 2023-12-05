@@ -17,7 +17,7 @@ const input  = await readFile(path.join(__dirname, "input.txt"), "utf8");
 
 describe("day 05", () => {
     test("can parse input", () => {
-        expect(new Day05(sample)).toMatchSnapshot();
-        expect(new Day05(input)).toMatchSnapshot();
+        expect((new Day05(sample)).toString()).toBe(sample);
+        expect((new Day05(input)).toString()).toBe(input);
     });
 });
