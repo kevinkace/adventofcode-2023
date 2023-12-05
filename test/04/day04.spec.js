@@ -14,7 +14,7 @@ const __dirname  = path.dirname(__filename);
 const sample = await readFile(path.join(__dirname, "sample.txt"), "utf8");
 const input  = await readFile(path.join(__dirname, "input.txt"), "utf8");
 
-const sampleGame = "Card 1: 41 48 83 86 17 | 83 86  6 31 17  9 48 53";
+const sampleGame  = "Card 1: 41 48 83 86 17 | 83 86  6 31 17  9 48 53";
 const sampleGame2 = "Card 3:  1 21 53 59 44 | 69 82 63 72 16 21 14  1";
 
 
