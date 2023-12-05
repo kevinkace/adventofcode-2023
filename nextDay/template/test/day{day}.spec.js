@@ -4,7 +4,7 @@ import path              from "node:path";
 
 import { expect, test, describe } from "vitest";
 
-import { parse } from "../../days/day{day}.js";
+import { Day{day} } from "../../days/day{day}.js";
 
 import typedefs from "../../typedefs.js";
 
@@ -17,7 +17,7 @@ const input  = await readFile(path.join(__dirname, "input.txt"), "utf8");
 
 describe("day {day}", () => {
     test("can parse input", () => {
-        expect(parse(sample)).toMatchSnapshot();
-        expect(parse(input)).toMatchSnapshot();
+        expect(new Day{day}(sample)).toMatchSnapshot();
+        expect(new Day{day}(input)).toMatchSnapshot();
     });
 });
