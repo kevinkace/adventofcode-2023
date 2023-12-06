@@ -9,7 +9,7 @@ export class Almanac {
     parse() {
         this.str.split(/(?:\r?\n){2}/).forEach((section, idx) => {
             if (idx === 0) {
-                this.seeds = section.split(" ").filter((_, idx) => idx).map(Number);
+                this.seeds = this.parseSeeds(section);
 
                 return;
             }
@@ -30,6 +30,29 @@ export class Almanac {
             });
 
             this.maps.push(map);
+        });
+    }
+
+    toString() {
+        const seedsStr = this.seedsToString();
+        const maps = Almanac.mapsToString(this.maps);
+
+        return [seedsStr, ...maps].join("\r\n\r\n");
+    }
+
+    parseSeeds(section) {
+        return section.split(" ").filter((_, idx) => idx).map(Number);
+    }
+
+    seedsToString() {
+        return `seeds: ${this.seeds.join(" ")}`;
+    }
+
+    static mapsToString(maps) {
+        return maps.map((map) => {
+            const rows = map.rows.map((row) => row.join(" ")).join("\r\n");
+
+            return `${map.name}\r\n${rows}`;
         });
     }
 
@@ -84,15 +107,96 @@ export class Almanac {
     getMinFinalDestForAllSeeds() {
         return Math.min(...this.getFinalDestForAllSeeds());
     }
+}
 
-    toString() {
-        const seedsStr = `seeds: ${this.seeds.join(" ")}`;
-        const maps = this.maps.map((map) => {
-            const rows = map.rows.map((row) => row.join(" ")).join("\r\n");
 
-            return `${map.name}\r\n${rows}`;
-        });
-
-        return [seedsStr, ...maps].join("\r\n\r\n");
+export class Almanac2 extends Almanac {
+    constructor(str) {
+        super(str);
     }
+
+    parseSeeds(sections) {
+        return sections
+            .split(" ")
+            .filter((_, idx) => idx) // remove first el `"seeds:"`
+            .map(Number)
+            // group in touples
+            .reduce((acc, seed, idx) => {
+                const pos = Math.floor(idx / 2);
+
+                if (!acc[pos]) {
+                    acc[pos] = [];
+                }
+
+                acc[pos].push(seed);
+
+                return acc;
+            }, []);
+    }
+
+    seedsToString() {
+        return `seeds: ${this.seeds.flat().join(" ")}`;
+    }
+
+    static _getRangesFromRange(inputRange, ranges) {
+        let [ start, length ] = inputRange;
+        const end = start + length;
+
+        const outputRanges = this._filterRangesBetween(start, end, ranges);
+
+        if (!outputRanges.length) {
+            return [[ start, start, length ]];
+        }
+
+        const firstRange = outputRanges.at(0);
+        const lastRange = outputRanges.at(-1);
+        const lastRangeEnd = lastRange[1] + lastRange[2];
+
+        if (firstRange[1] > start) {
+            outputRanges.unshift([ start, start, firstRange[1] - start ]);
+        }
+
+        if (lastRangeEnd < end) {
+            outputRanges.push([ lastRangeEnd, lastRangeEnd, end - lastRangeEnd ]);
+        }
+
+        return outputRanges;
+    }
+
+    static _getDestRangesFromOutRanges(inputRange, ranges) {
+        const [ start, length ] = inputRange;
+        const end = start + length;
+
+        const outRanges = this._getRangesFromRange(inputRange, ranges);
+
+        return outRanges.map(([ dest, src, mapRange ]) => {
+            const outRangeDestStart  = dest + (start - src);
+            const outRangeDestRange = mapRange - (start - src) - (src + mapRange - end);
+
+            return [ outRangeDestStart, outRangeDestRange ];
+        });
+    }
+
+    static _filterRangesBetween(start, end, ranges) {
+        return Almanac2._sortMapsBySrc(ranges)
+        .filter(([ dest, src, mapRange ], idx) => {
+
+            const srcEnd = src + mapRange;
+
+            if (start >= src && start <= srcEnd) {
+                return true;
+            }
+
+            if (end >= src && end <= srcEnd) {
+                return true;
+            }
+
+            return false;
+        });
+    }
+
+    static _sortMapsBySrc(maps) {
+        return maps.sort((a, b) => a[1] - b[1]);
+    }
+
 }

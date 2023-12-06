@@ -4,7 +4,7 @@ import path              from "node:path";
 
 import { expect, test, describe } from "vitest";
 
-import { Almanac } from "../../days/day05.js";
+import { Almanac, Almanac2 } from "../../days/day05.js";
 
 import typedefs from "../../typedefs.js";
 
@@ -84,5 +84,57 @@ describe("day 05", () => {
         const minFinalDest = almanac.getMinFinalDestForAllSeeds();
 
         expect(minFinalDest).toBe(107430936);
+    });
+
+    test("Almanac 2 parse", () => {
+        const almanac = new Almanac2(sample);
+
+        expect(almanac.seeds).toMatchSnapshot();
+
+        expect(almanac.toString()).toBe(sample);
+    });
+
+    test("can sort maps", () => {
+        const almanac = new Almanac2(sample);
+
+        // console.log(almanac.maps[0].rows);
+
+        let output = [];
+
+        almanac.seeds.forEach((seed, idx) => {
+            almanac.maps.forEach((map, idx) => {
+                const outRanges = Almanac2._getRangesFromRange(seed, map.rows);
+
+                output.push({ seed, outRanges});
+            });
+        });
+
+        expect(output).toMatchSnapshot();
+
+        // const outRanges = Almanac2._getRangesFromRange(almanac.seeds[1], almanac.maps[5].rows);
+    });
+
+    test("can get dest ranges", () => {
+        const almanac = new Almanac2(sample);
+
+        const outRanges = Almanac2._getDestRangesFromOutRanges(almanac.seeds[0], almanac.maps[5].rows);
+
+        console.log(outRanges);
+
+        const output = [];
+
+
+        const outRanges2 = Almanac2._getDestRangesFromOutRanges(almanac.seeds[1], almanac.maps[3].rows);
+
+        almanac.seeds.forEach((seed, idx) => {
+            almanac.maps.forEach((map, idx) => {
+                const outRanges2 = Almanac2._getDestRangesFromOutRanges(seed, map.rows);
+
+                output.push({ seed, outRanges : outRanges2 });
+            });
+        });
+
+        // console.log(output);
+        // output.forEach(out => console.log(out.outRanges));
     });
 });
