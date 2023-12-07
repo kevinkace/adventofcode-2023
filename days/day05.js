@@ -224,3 +224,70 @@ export class Almanac2 extends Almanac {
     }
 
 }
+
+export class Almanac3 extends Almanac {
+    parseSeeds(sections) {
+        return sections
+            .split(" ")
+            .filter((_, idx) => idx) // remove first el `"seeds:"`
+            .map(Number)
+            // group in touples
+            .reduce((acc, seed, idx) => {
+                const pos = Math.floor(idx / 2);
+
+                if (!acc[pos]) {
+                    acc[pos] = [];
+                }
+
+                acc[pos].push(seed);
+
+                return acc;
+            }, []);
+    }
+
+    getSmallestFinalDest() {
+        // let smallestDest =
+
+        // this._getFinalDestFromMaps(seed, this.maps.map((map) => map.rows)));
+    }
+
+    iterateAllSeeds(itor) {
+        this.seeds.forEach(([start, range]) => {
+            console.log({ start, range });
+
+            for (let idx = start; idx < start + range; idx++) {
+                itor(idx);
+            }
+        });
+    }
+
+    getEvenAndOddTotals() {
+        let evenTotal = 0,
+            oddTotal = 0;
+
+        this.iterateAllSeeds((idx) => {
+            if (idx % 2 === 0) {
+                evenTotal++;
+            } else {
+                oddTotal++;
+            }
+        });
+
+        return { evenTotal, oddTotal };
+    }
+
+    getLowestSeedDest() {
+        let lowestSeedDest = Infinity;
+
+        this.iterateAllSeeds((idx) => {
+            const dest = this._getFinalDestFromMaps(idx, this.maps.map((map) => map.rows));
+
+            if (dest < lowestSeedDest) {
+                console.log(dest);
+                lowestSeedDest = dest;
+            }
+        });
+
+        return lowestSeedDest;
+    }
+}

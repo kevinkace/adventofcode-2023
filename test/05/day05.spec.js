@@ -4,7 +4,7 @@ import path              from "node:path";
 
 import { expect, test, describe } from "vitest";
 
-import { Almanac, Almanac2 } from "../../days/day05.js";
+import { Almanac, Almanac2, Almanac3 } from "../../days/day05.js";
 
 import typedefs from "../../typedefs.js";
 
@@ -114,7 +114,7 @@ describe("day 05", () => {
         // const outRanges = Almanac2._getRangesFromRange(almanac.seeds[1], almanac.maps[5].rows);
     });
 
-    test.only("can get dest ranges", () => {
+    test.skip("can get dest ranges", () => {
         const almanac = new Almanac2(sample);
 
         // const outRanges = Almanac2._getDestRangesFromOutRanges(almanac.seeds[0], almanac.maps[5].rows);
@@ -142,11 +142,22 @@ describe("day 05", () => {
         // output.forEach(out => console.log(out.outRanges));
     });
 
-    test.only("answer p2" , () => {
+    test.skip("answer p2" , () => {
         const almanac = new Almanac2(sample);
 
         const finalDestRanges = almanac._getFinalDestRanges();
 
-        console.log(finalDestRanges);
+        // console.log(finalDestRanges);
+    });
+
+    test.skip("this takes a very long time", () => {
+        const almanac = new Almanac3(input);
+
+    //    almanac.iterateAllSeedTouples();
+
+        const lowest = almanac.getLowestSeedDest();
+
+        // wow this took hrs
+        expect(lowest).toBe(23738616);
     });
 });
