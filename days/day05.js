@@ -168,13 +168,37 @@ export class Almanac2 extends Almanac {
         const end = start + length;
 
         const outRanges = this._getRangesFromRange(inputRange, ranges);
+        // console.log({ outRanges })
 
         return outRanges.map(([ dest, src, mapRange ]) => {
-            const outRangeDestStart  = dest + (start - src);
-            const outRangeDestRange = mapRange - (start - src) - (src + mapRange - end);
+            const outRangeDestStart = dest + (start - src);
+            const outRangeDestRange = src + mapRange > end ? end - outRangeDestStart : mapRange;
+
+            // mapRange - (start - src) - (src + mapRange - end);
 
             return [ outRangeDestStart, outRangeDestRange ];
         });
+    }
+
+    _getFinalDestRanges() {
+        let nextSeeds = this.seeds,
+            currSeeds;
+
+        this.maps.forEach((map) => {
+            // console.log({ nextSeeds, currSeeds });
+            currSeeds = nextSeeds;
+            nextSeeds = [];
+
+            currSeeds.forEach((seed, idx) => {
+                const destRanges = Almanac2._getDestRangesFromOutRanges(seed, map.rows);
+
+                // console.log({ destRanges });
+
+                nextSeeds.push(...destRanges);
+            });
+        });
+
+        return currSeeds;
     }
 
     static _filterRangesBetween(start, end, ranges) {

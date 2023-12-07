@@ -114,27 +114,39 @@ describe("day 05", () => {
         // const outRanges = Almanac2._getRangesFromRange(almanac.seeds[1], almanac.maps[5].rows);
     });
 
-    test("can get dest ranges", () => {
+    test.only("can get dest ranges", () => {
         const almanac = new Almanac2(sample);
 
-        const outRanges = Almanac2._getDestRangesFromOutRanges(almanac.seeds[0], almanac.maps[5].rows);
+        // const outRanges = Almanac2._getDestRangesFromOutRanges(almanac.seeds[0], almanac.maps[5].rows);
 
-        console.log(outRanges);
+        // console.log(outRanges);
+
+        const destRanges3 = Almanac2._getDestRangesFromOutRanges([57, 13 ], almanac.maps[2].rows);
+
+        // console.log({destRanges3});
 
         const output = [];
 
 
-        const outRanges2 = Almanac2._getDestRangesFromOutRanges(almanac.seeds[1], almanac.maps[3].rows);
+        // const outRanges2 = Almanac2._getDestRangesFromOutRanges(almanac.seeds[1], almanac.maps[3].rows);
 
-        almanac.seeds.forEach((seed, idx) => {
-            almanac.maps.forEach((map, idx) => {
-                const outRanges2 = Almanac2._getDestRangesFromOutRanges(seed, map.rows);
+        // almanac.seeds.forEach((seed, idx) => {
+        //     almanac.maps.forEach((map, idx) => {
+        //         const outRanges2 = Almanac2._getDestRangesFromOutRanges(seed, map.rows);
 
-                output.push({ seed, outRanges : outRanges2 });
-            });
-        });
+        //         output.push({ seed, outRanges : outRanges2 });
+        //     });
+        // });
 
         // console.log(output);
         // output.forEach(out => console.log(out.outRanges));
+    });
+
+    test.only("answer p2" , () => {
+        const almanac = new Almanac2(sample);
+
+        const finalDestRanges = almanac._getFinalDestRanges();
+
+        console.log(finalDestRanges);
     });
 });
