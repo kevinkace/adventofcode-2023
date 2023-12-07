@@ -2,11 +2,13 @@ export function parse(str) {
     return str.split(/\r?\n/);
 }
 
-export class Day06 {
+export class Games {
     constructor(str) {
-        // this.str = str;
         this.races = [];
+        this.parseRaces(str);
+    }
 
+    parseRaces(str) {
         const [times, distances] = str.split(/\r?\n/).map(line => line.split(/\s+/).filter((_, i) => i));
 
         for (let raceIdx = 0; raceIdx < times.length; raceIdx++) {
@@ -19,6 +21,7 @@ export class Day06 {
 
     getNumberWinning() {
         const numberWinningHoldTimes = [];
+
         for (const race of this.races) {
             let winningHoldTimes = 0;
 
@@ -34,6 +37,8 @@ export class Day06 {
             numberWinningHoldTimes.push(winningHoldTimes);
         }
 
+        // console.log(numberWinningHoldTimes);
+
         return numberWinningHoldTimes;
     }
 
@@ -46,5 +51,18 @@ export class Day06 {
         return this.races.map((race, idx) => {
             return [ idx, race.time, race.distance  ].join(" ");
         }).join("\n");
+    }
+}
+
+export class Games2 extends Games {
+    parseRaces(str) {
+        const [time, distance] = str
+            .split(/\r?\n/)
+            .map(line => {
+                return  line.split(":")[1].replaceAll(" ", "");
+            });
+
+
+        this.races.push({ time, distance });
     }
 }

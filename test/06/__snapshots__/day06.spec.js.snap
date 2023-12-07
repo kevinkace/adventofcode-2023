@@ -1,11 +1,11 @@
 // Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
 
-exports[`day 06 > can get product winning 1`] = `
+exports[`day 06 > answer p2 1`] = `
 [
-  41,
-  55,
-  10,
-  53,
+  {
+    "distance": "302147610291404",
+    "time": "54946592",
+  },
 ]
 `;
 
@@ -15,21 +15,6 @@ exports[`day 06 > can get winning 1`] = `
   8,
   9,
 ]
-`;
-
-exports[`day 06 > can parse input > Time:        54     94     65     92
-Distance:   302   1476   1029   1404 1`] = `
-"0 54 302
-1 94 1476
-2 65 1029
-3 92 1404"
-`;
-
-exports[`day 06 > can parse input > Time:      7  15   30
-Distance:  9  40  200 1`] = `
-"0 7 9
-1 15 40
-2 30 200"
 `;
 
 exports[`day 06 > can parse input 1`] = `
