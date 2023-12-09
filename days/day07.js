@@ -31,38 +31,67 @@ export class Games {
         return this.str
             .split(eol)
             .map(line =>{
-                const [ hand, bet ] = line.split(" ");
+                const [ cards, bet ] = line.split(" ");
 
-                const grouped = hand
-                    .split("")
+                const cardsInOrder = cards.split("");
+
+                const grouped = cardsInOrder
                     .reduce((acc, card) => {
                         acc[card] = acc[card] ? acc[card] + 1 : 1;
 
                         return acc;
                     }, {});
 
-                const handValue = handValues.indexOf(Object.values(grouped).sort((a, b) => b - a).join(""));
+                const value = handValues.indexOf(Object.values(grouped).sort((a, b) => b - a).join(""));
 
-                return { hand, grouped, bet, handValue };
+                return { cards, grouped, bet : Number(bet), value, cardsInOrder };
             });
     }
 
     toString() {
         return this.rounds
-            .reduce(
-                (acc, line) => [ acc, line.join(" "), eol ].join(""),
-                ""
+            .reduce((acc, line) => {
+                const row = [ line.cards, line.bet ].join(" ");
+
+                return [ acc, row, eol ].join("");
+            }, ""
             )
             .trim();
     }
 
-    getGroupCards() {
-        this.grouped = this.rounds.forEach((acc, [ hand, bet ]) => {
-            acc[card] = acc[card] ? acc[card] + 1 : 1;
+    getSortedHands() {
+        return this.rounds.slice().sort(Games.sortHand);
+    }
 
-            return acc;
-        }, {});
+    getSortedBets() {
+        return this.getSortedHands().map(hand => hand.bet);
+    }
 
-        return this.grouped;
+    getTotalWinnings() {
+        return this.getSortedHands().reduce((acc, hand, idx) => {
+            return acc + (hand.bet * (idx + 1));
+        }, 0);
+    }
+
+    static sortHand(hand1, hand2) {
+        if (hand1.value > hand2.value) {
+            return 1;
+        } if (hand1.value < hand2.value) {
+            return -1;
+        }
+
+        for (let idx = 0; idx < hand1.cardsInOrder.length; idx++) {
+            const hand1Card = hand1.cardsInOrder[idx];
+            const hand2Card = hand2.cardsInOrder[idx];
+
+            if (hand1Card === hand2Card) {
+                continue;
+            }
+
+            const card1Value = faceCardValues[hand1Card] || Number(hand1Card);
+            const card2Value = faceCardValues[hand2Card] || Number(hand2Card);
+
+            return card1Value > card2Value ? 1 : -1;
+        }
     }
 }

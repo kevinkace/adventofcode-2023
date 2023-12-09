@@ -20,16 +20,36 @@ describe("day 07", () => {
         const sampleGame = new Games(sample);
         // const inputGame = new Games(input);
 
-        console.log(JSON.stringify(sampleGame, null, 2));
-        // expect(sample).toString()).toBe(sample);
+        // console.log(JSON.stringify(sampleGame, null, 2));
+        expect(sampleGame.toString()).toBe(sample);
         // expect(input).toString()).toBe(input);
     });
 
-    test("can group cards", () => {
-        const sampleGames = new Games(sample);
+    test("can sort games", () => {
+        const sampleGame = new Games(sample);
+        // const inputGame = new Games(input);
 
-        // expect(sampleGames.getGroupCards()).toMatchSnapshot();
+        expect(sampleGame.getSortedHands()).toMatchSnapshot();;
+    });
 
-        // console.log(sampleGames.rounds);
+    test("can sort bets", () => {
+        const sampleGame = new Games(sample);
+        // const inputGame = new Games(input);
+
+        expect(sampleGame.getSortedBets()).toMatchSnapshot();;
+    });
+
+    test("can get total winnings", () => {
+        const sampleGame = new Games(sample);
+        // const inputGame = new Games(input);
+
+        expect(sampleGame.getTotalWinnings()).toBe(6440);
+    });
+
+    test("answer p1", () => {
+        const sampleGame = new Games(input);
+        // const inputGame = new Games(input);
+
+        expect(sampleGame.getTotalWinnings()).toMatchSnapshot();
     });
 });
