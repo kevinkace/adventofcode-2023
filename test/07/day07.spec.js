@@ -43,6 +43,6 @@ describe("day 07", () => {
     test("answer p1", () => {
         const game = new Games(input);
 
-        expect(game.getTotalWinnings()).toMatchSnapshot();
+        expect(game.getTotalWinnings()).toBe(250120186);
     });
 });
