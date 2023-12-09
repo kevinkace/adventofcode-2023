@@ -18,38 +18,31 @@ const input  = await readFile(path.join(__dirname, "input.txt"), "utf8");
 describe("day 07", () => {
     test("can parse input", () => {
         const sampleGame = new Games(sample);
-        // const inputGame = new Games(input);
 
-        // console.log(JSON.stringify(sampleGame, null, 2));
         expect(sampleGame.toString()).toBe(sample);
-        // expect(input).toString()).toBe(input);
     });
 
     test("can sort games", () => {
         const sampleGame = new Games(sample);
-        // const inputGame = new Games(input);
 
         expect(sampleGame.getSortedHands()).toMatchSnapshot();;
     });
 
     test("can sort bets", () => {
         const sampleGame = new Games(sample);
-        // const inputGame = new Games(input);
 
         expect(sampleGame.getSortedBets()).toMatchSnapshot();;
     });
 
     test("can get total winnings", () => {
         const sampleGame = new Games(sample);
-        // const inputGame = new Games(input);
 
         expect(sampleGame.getTotalWinnings()).toBe(6440);
     });
 
     test("answer p1", () => {
-        const sampleGame = new Games(input);
-        // const inputGame = new Games(input);
+        const game = new Games(input);
 
-        expect(sampleGame.getTotalWinnings()).toMatchSnapshot();
+        expect(game.getTotalWinnings()).toMatchSnapshot();
     });
 });
