@@ -18,7 +18,6 @@ export class BinaryTree {
     }
 
     log() {
-        console.log({ head : this.head });
         console.table(this.nodes);
     }
 
@@ -71,5 +70,79 @@ export class Network {
     log() {
         console.log({ instructions : this.instructions.join("")});
         this.binTree.log();
+    }
+}
+
+export class Network2 extends Network {
+    constructor(str) {
+        super(str);
+
+        const nodeKeys = Object.keys(this.binTree.nodes);
+
+        this.aNodes = nodeKeys.filter(node => node.includes("A"));
+        this.zNodes = nodeKeys.filter(node => node.includes("Z"));
+    }
+
+    walkTree(head = "AAA", tail = "ZZZ", { log = false } = {}) {
+        let instIdx = 0;
+        let currNode = head;
+        let iterations = 0;
+        let zIterations = []
+
+        const MAX_ITERATIONS = 1000000;
+
+        log && console.log({ head, tail });
+
+        while (currNode !== tail && iterations < MAX_ITERATIONS) {
+            iterations++;
+
+            const instruction = this.instructions[instIdx];
+
+            // increment instruction idx but clamp
+            instIdx = instIdx >= this.instructions.length - 1 ? 0 : instIdx + 1;
+
+            currNode = this.binTree.getChild(currNode, instruction);
+            if (currNode[2] === "Z") {
+                zIterations.push(iterations);
+            }
+
+            log && console.log({ currNode });
+        }
+
+        return { iterations, zIterations};
+    }
+
+    getAllIterations(opts) {
+        const allIterations = {};
+
+        this.aNodes.forEach(aNode => {
+            const {iterations, zIterations } = this.walkTree(aNode, "ZZZ", opts);
+
+            allIterations[aNode] = {iterations, zIterations };
+        });
+
+        return allIterations;
+    }
+
+    getLowestCommonPath() {
+        const allIterations = this.getAllIterations();
+
+        console.log(allIterations);
+
+        const allZIterations = Object.values(allIterations).map(({ zIterations }) => zIterations);
+
+        const allZIterationsSorted = allZIterations.sort((a, b) => a.length - b.length);
+
+        const lowestZIterations = allZIterationsSorted.shift();
+
+        const lowest = lowestZIterations.find(zIteration => {
+            return allZIterations.find(allZs => allZs.includes(zIteration));
+        });
+
+        return lowest;
+
+        // lowestZIterations.forEach(zIteration => {
+        //     const zIteration = allZIterations.find(zIterations => zIterations.includes(zIteration));
+        // });
     }
 }
