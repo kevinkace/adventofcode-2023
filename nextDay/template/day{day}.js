@@ -1,11 +1,9 @@
-export function parse(str) {
-    return str.split(/\r?\n/);
-}
+import { eol } from "../consts";
 
 export class Day{day} {
     constructor(str) {
         this.str = str;
-        this.lines = str.split(/\r?\n/);
+        this.lines = str.split(eol);
 
         this.parsed = this.parse();
     }
