@@ -10,6 +10,17 @@ exports[`day 07 > can sort bets 1`] = `
 ]
 `;
 
+exports[`day 07 > can sort bets sample 2 1`] = `
+[
+  765,
+  220,
+  28,
+  684,
+  483,
+  26,
+]
+`;
+
 exports[`day 07 > can sort games 1`] = `
 [
   {

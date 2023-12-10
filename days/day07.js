@@ -27,6 +27,16 @@ export class Games {
         this.rounds = this.parse();
     }
 
+    faceCardValues() {
+        return {
+            A: 14,
+            K: 13,
+            Q: 12,
+            J: 11,
+            T: 10
+        };
+    }
+
     parse() {
         return this.str
             .split(eol)
@@ -35,14 +45,9 @@ export class Games {
 
                 const cardsInOrder = cards.split("");
 
-                const grouped = cardsInOrder
-                    .reduce((acc, card) => {
-                        acc[card] = acc[card] ? acc[card] + 1 : 1;
+                const grouped = Games.groupCards(cardsInOrder);
 
-                        return acc;
-                    }, {});
-
-                const value = handValues.indexOf(Object.values(grouped).sort((a, b) => b - a).join(""));
+                const value = handValues.indexOf(this.getHandValue(grouped));
 
                 return { cards, grouped, bet : Number(bet), value, cardsInOrder };
             });
@@ -60,7 +65,7 @@ export class Games {
     }
 
     getSortedHands() {
-        return this.rounds.slice().sort(Games.sortHand);
+        return this.rounds.slice().sort(this.sortHand);
     }
 
     getSortedBets() {
@@ -73,7 +78,20 @@ export class Games {
         }, 0);
     }
 
-    static sortHand(hand1, hand2) {
+    getHandValue(grouped) {
+        return Object.values(grouped).sort((a, b) => b - a).join("");
+    }
+
+    static groupCards(cardsInOrder) {
+        return cardsInOrder
+            .reduce((acc, card) => {
+                acc[card] = acc[card] ? acc[card] + 1 : 1;
+
+                return acc;
+            }, {});
+    }
+
+    sortHand(hand1, hand2) {
         if (hand1.value > hand2.value) {
             return 1;
         } if (hand1.value < hand2.value) {
@@ -91,7 +109,38 @@ export class Games {
             const card1Value = faceCardValues[hand1Card] || Number(hand1Card);
             const card2Value = faceCardValues[hand2Card] || Number(hand2Card);
 
+            // console.log({ card1Value, card2Value })
+
             return card1Value > card2Value ? 1 : -1;
         }
     }
+}
+
+export class Games2 extends Games {
+    getHandValue(grouped) {
+        if (!grouped["J"] || grouped["J"] === 5) {
+            console.log({ grouped, hv : super.getHandValue(grouped) });
+            return super.getHandValue(grouped);
+        }
+
+
+        const newGrouped = { ...grouped };
+        const { J } = newGrouped;
+
+        delete newGrouped.J;
+
+        return super.getHandValue(newGrouped).replace(/\d/, (match) => {
+            return Number(match) + J;
+        });
+    }
+
+    faceCardValues() {
+        return {
+            A: 14,
+            K: 13,
+            Q: 12,
+            T: 10
+        };
+    }
+
 }
