@@ -8,13 +8,9 @@ import { Network, BinaryTree, Network2 } from "../../days/day08.js";
 
 import typedefs from "../../typedefs.js";
 
-const __filename = fileURLToPath(import.meta.url);
-const __dirname  = path.dirname(__filename);
+import { sample, sample2, sample3, sample4 } from "./samples.js";
 
-const sample = await readFile(path.join(__dirname, "sample.txt"), "utf8");
-const sample2 = await readFile(path.join(__dirname, "sample-2.txt"), "utf8");
-const sample3 = await readFile(path.join(__dirname, "sample-3.txt"), "utf8");
-const input  = await readFile(path.join(__dirname, "input.txt"), "utf8");
+import { input } from "./input.js";
 
 
 describe("day 08", () => {
@@ -48,28 +44,20 @@ describe("day 08", () => {
         expect(iterations).toEqual(22411);
     });
 
-    test("can walk tree 2", () => {
-        const network = new Network2(sample3);
-        const allIterations = network.getAllIterations();
+    // test("can walk tree 2", () => {
+    //     const network = new Network2(sample3);
+    //     const allIterations = network.getAllIterations();
 
-        // console.log((allIterations));
+    //     // console.log((allIterations));
 
-        console.log(network.getLowestCommonPath());
-    });
+    //     console.log(network.getLowestCommonPath());
+    // });
 
-    test("answer p2 sample", () => {
+    // test("answer p2 sample", () => {
 
-        const network = new Network2(sample3);
-        const lowestCommonPath = network.getLowestCommonPath();
+    //     const network = new Network2(sample3);
+    //     const lowestCommonPath = network.getLowestCommonPath();
 
-        expect(lowestCommonPath).toEqual(6);
-    });
-
-    test.only("answer p2", () => {
-
-        const network = new Network2(input);
-        const lowestCommonPath = network.getLowestCommonPath();
-
-        console.log({ lowestCommonPath });
-    });
+    //     expect(lowestCommonPath).toEqual(6);
+    // });
 });

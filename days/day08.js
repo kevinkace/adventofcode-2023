@@ -1,8 +1,9 @@
-import { eol } from "../consts";
+import { getEol } from "../consts";
 
 export class BinaryTree {
     constructor(map) {
-        this.nodes = map.split(eol).reduce((acc, line, idx) => {
+        this.eol = getEol(map);
+        this.nodes = map.split(this.eol).reduce((acc, line, idx) => {
             const [ _, value, L, R ] = line.match(/(\w{3}) = \((\w{3}), (\w{3})\)/);
 
             acc[value] = { L, R};
@@ -13,7 +14,7 @@ export class BinaryTree {
 
     toString() {
         return Object.entries(this.nodes).reduce((acc, [ value, { L, R } ]) => {
-            return acc + `${value} = (${L}, ${R})${eol}`;
+            return acc + `${value} = (${L}, ${R})${this.eol}`;
         }, "").trim();
     }
 
@@ -29,8 +30,9 @@ export class BinaryTree {
 
 export class Network {
     constructor(str) {
+        this. eol = getEol(str);
         this.str = str;
-        const [ instructions, map ] = str.split(`${eol}${eol}`);
+        const [ instructions, map ] = str.split(`${this.eol}${this.eol}`);
 
         this.instructions = instructions.split("");
         this.binTree = new BinaryTree(map);
@@ -41,7 +43,7 @@ export class Network {
     }
 
     toString() {
-        return [ this.instructions.join(""), this.binTree.toString() ].join(`${eol}${eol}`);
+        return [ this.instructions.join(""), this.binTree.toString() ].join(`${this.eol}${this.eol}`);
     }
 
     walkTree(head = "AAA", tail = "ZZZ") {
@@ -70,79 +72,5 @@ export class Network {
     log() {
         console.log({ instructions : this.instructions.join("")});
         this.binTree.log();
-    }
-}
-
-export class Network2 extends Network {
-    constructor(str) {
-        super(str);
-
-        const nodeKeys = Object.keys(this.binTree.nodes);
-
-        this.aNodes = nodeKeys.filter(node => node.includes("A"));
-        this.zNodes = nodeKeys.filter(node => node.includes("Z"));
-    }
-
-    walkTree(head = "AAA", tail = "ZZZ", { log = false } = {}) {
-        let instIdx = 0;
-        let currNode = head;
-        let iterations = 0;
-        let zIterations = []
-
-        const MAX_ITERATIONS = 1000000;
-
-        log && console.log({ head, tail });
-
-        while (currNode !== tail && iterations < MAX_ITERATIONS) {
-            iterations++;
-
-            const instruction = this.instructions[instIdx];
-
-            // increment instruction idx but clamp
-            instIdx = instIdx >= this.instructions.length - 1 ? 0 : instIdx + 1;
-
-            currNode = this.binTree.getChild(currNode, instruction);
-            if (currNode[2] === "Z") {
-                zIterations.push(iterations);
-            }
-
-            log && console.log({ currNode });
-        }
-
-        return { iterations, zIterations};
-    }
-
-    getAllIterations(opts) {
-        const allIterations = {};
-
-        this.aNodes.forEach(aNode => {
-            const {iterations, zIterations } = this.walkTree(aNode, "ZZZ", opts);
-
-            allIterations[aNode] = {iterations, zIterations };
-        });
-
-        return allIterations;
-    }
-
-    getLowestCommonPath() {
-        const allIterations = this.getAllIterations();
-
-        console.log(allIterations);
-
-        const allZIterations = Object.values(allIterations).map(({ zIterations }) => zIterations);
-
-        const allZIterationsSorted = allZIterations.sort((a, b) => a.length - b.length);
-
-        const lowestZIterations = allZIterationsSorted.shift();
-
-        const lowest = lowestZIterations.find(zIteration => {
-            return allZIterations.find(allZs => allZs.includes(zIteration));
-        });
-
-        return lowest;
-
-        // lowestZIterations.forEach(zIteration => {
-        //     const zIteration = allZIterations.find(zIterations => zIterations.includes(zIteration));
-        // });
     }
 }
