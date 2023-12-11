@@ -74,3 +74,154 @@ export class Network {
         this.binTree.log();
     }
 }
+
+export class Network2 extends Network {
+    constructor(str) {
+        super(str);
+
+        this.aNodes = Object.keys(this.binTree.nodes).filter(node => node.endsWith("A"));
+
+        this.instrIdx = 0;
+    }
+
+    getNextInstr() {
+        const instruction = this.instructions[this.instrIdx];
+
+        this.instrIdx++;
+
+        if (this.instrIdx >= this.instructions.length) {
+            this.instrIdx = 0;
+        }
+
+        return instruction;
+    }
+
+    multiWalkTree(nodes, cb) {
+        let currNodes = [ ...nodes ];
+
+        let iterations = 0;
+        const MAX_ITERATIONS = 20000000;
+
+        while (iterations < MAX_ITERATIONS && cb(currNodes, iterations)) {
+            // console.log("iteration");
+
+            iterations++;
+
+            const instruction = this.getNextInstr();
+            currNodes = currNodes.map(node => this.binTree.getChild(node, instruction));
+        }
+
+        return iterations < MAX_ITERATIONS;
+    }
+
+    getAllEndInZ() {
+        let iterations;
+        // console.log({aNodes : this.aNodes});
+
+        const aNodes = this.aNodes.slice(0, 3);
+        // console.log({aNodes});
+        const success = this.multiWalkTree(aNodes, (nodes, _iterations) => {
+            // console.log({nodes});
+
+            const allZzz =  nodes.every(node => {
+                // console.log({node});
+                return node.endsWith("Z");
+            });
+
+            // console.log({allZzz});
+
+            if (allZzz) {
+                iterations = _iterations;
+            }
+
+            return !allZzz;
+        });
+
+        return success && iterations;
+    }
+
+    getFirstEndZ() {
+        const iterationsToZ = {};
+
+        const success = this.multiWalkTree(this.aNodes, (nodes, iterations) => {
+            // console.log({nodes});
+
+            nodes.forEach((node, idx) => {
+                if (node.endsWith("Z")) {
+                    // console.log({iterationsToZ});
+                    iterationsToZ[idx] = iterations;
+                }
+            });
+
+            // console.log(Object.keys(iterationsToZ).length !== nodes.length);
+
+            return Object.keys(iterationsToZ).length !== nodes.length;
+        });
+
+        return success && iterationsToZ;
+    }
+
+    /**
+     * Walk with ["AAA"] and to all "ZZZ", aka answer to p1
+     * @returns {}
+     */
+    getAtoZ() {
+        let iterations;
+
+        const success = this.multiWalkTree(["AAA"], (nodes, _iterations) => {
+            iterations = _iterations;
+
+            // console.log({nodes, iterations})
+
+            const allZzz =  nodes.every(node => {
+                // console.log({node});
+                return node === "ZZZ";
+            });
+
+            // console.log({allZzz});
+
+            return !allZzz;
+        });
+
+        return success && iterations;
+    }
+
+    getFirstZProduct() {
+        const firstZ = this.getFirstEndZ();
+
+        if (!firstZ) {
+            return null;
+        }
+
+        return Object.values(firstZ).reduce((acc, val) => acc * val, 1);
+    }
+}
+
+export function gcd(a, b) {
+    if (b === 0) {
+        return a;
+    }
+
+    return gcd(b, a % b);
+}
+
+export function lcmTwo(a, b) {
+    // Helper function to calculate the LCM of two numbers
+    return Math.abs(a * b) / gcd(a, b);
+}
+
+export function lcm(numbers) {
+    if (!Array.isArray(numbers) || numbers.length === 0) {
+        return null; // Invalid input
+    }
+
+    // Start with the LCM of the first two numbers
+    let result = numbers[0];
+
+    // Iterate through the remaining numbers and update the LCM
+    for (let i = 1; i < numbers.length; i++) {
+        result = lcmTwo(result, numbers[i]);
+    }
+
+    return result;
+}

@@ -25,7 +25,7 @@ export const sample3 = `LR
 22Z = (22B, 22B)
 XXX = (XXX, XXX)`;
 
-export const sample4 = `LR
+export const sample4 = `LRLLRLR
 
 11A = (11B, XXX)
 11B = (XXX, 11Z)
@@ -38,4 +38,6 @@ export const sample4 = `LR
 33B = (33D, 33C)
 33C = (33D, 33D)
 33D = (33Z, 33Z)
-33Z = (33A, 33B)`;
+33Z = (33A, 33B)
+XXX = (ZZZ, ZZZ)
+ZZZ = (ZZZ, ZZZ)`;
