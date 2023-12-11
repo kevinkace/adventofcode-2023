@@ -1,9 +1,10 @@
-import { eol } from "../consts";
+import { getEol } from "../consts";
 
 export class Day{day} {
     constructor(str) {
         this.str = str;
-        this.lines = str.split(eol);
+        this.eol = getEol(str);
+        this.lines = str.split(this.eol);
 
         this.parsed = this.parse();
     }
@@ -13,6 +14,6 @@ export class Day{day} {
     }
 
     toString() {
-        return this.parsed.reduce((acc, line) => acc + line.join(" ") + "\n", "").trim();
+        return this.parsed.reduce((acc, line) => acc + line.join(" ") + this.eol, "").trim();
     }
 }
