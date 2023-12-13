@@ -34,6 +34,20 @@ export class Stack {
         this.tail = node;
     }
 
+    addNodeFront(value) {
+        const node = new Node(value, { next : this.head});
+
+        if (this.head) {
+            this.head.prev = node;
+        }
+
+        if (!this.tail) {
+            this.tail = node;
+        }
+
+        this.head = node;
+    }
+
     iterate(cb) {
         const MAX_ITERATIONS = 1000;
         let currNode = this.head;
@@ -110,6 +124,22 @@ export class Stack {
         return stacksToZero[0].tail.value;
     }
 
+    getPrev() {
+        const stacksToZero = this.buildStacksToZero();
+        let prevStack;
+
+        [...stacksToZero].reverse().forEach((currStack, idx) => {
+            const difference = idx === 0 ?
+                0 :
+                currStack.head.value - prevStack.head.value;
+
+            currStack.addNodeFront(difference);
+            prevStack = currStack;
+        });
+
+        return stacksToZero[0].head.value;
+    }
+
     toString() {
         let value = "";
 
@@ -143,6 +173,17 @@ export class Stacks {
 
     getNextsSum() {
         return this.getNexts().reduce((acc, val) => {
+            // console.log(val);
+            return acc + val;
+        }, 0);
+    }
+
+    getPrevs() {
+        return this.stacks.map(stack => stack.getPrev());
+    }
+
+    getPrevsSum() {
+        return this.getPrevs().reduce((acc, val) => {
             // console.log(val);
             return acc + val;
         }, 0);
