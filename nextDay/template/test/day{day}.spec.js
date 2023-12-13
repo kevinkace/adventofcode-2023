@@ -10,7 +10,10 @@ import { input } from "./input.js";
 
 describe("day {day}", () => {
     test("can parse input", () => {
-        expect((new Day{day}(sample)).toString()).toBe(sample);
-        expect((new Day{day}(input)).toString()).toBe(input);
+        const sampleInst = new Day{day}(sample);
+        const inputInst = new Day{day}(input);
+
+        expect(sampleInst.toString()).toBe(sample);
+        expect(inputInst.toString()).toBe(input);
     });
 });

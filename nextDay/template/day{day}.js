@@ -4,13 +4,10 @@ export class Day{day} {
     constructor(str) {
         this.str = str;
         this.eol = getEol(str);
-        this.lines = str.split(this.eol);
 
-        this.parsed = this.parse();
-    }
-
-    parse() {
-        return this.lines.map(line => line.split(" "));
+        this.parsed = str
+            .split(this.eol)
+            .map(line => line.split(" "));
     }
 
     toString() {
